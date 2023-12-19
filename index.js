@@ -259,25 +259,22 @@ const mensagemBoasVindasEnviada = new Set();
 const estadoUsuario = new Map();
 const estadoSubmenu = new Map();
 
-function opcoesRedeminas(escolha, numeroRemetente){
+function opcoesRedeminas(escolha, numeroRemetente, estadoAtual){
   escolha = Number(escolha);
   var escolhaPrograma = (escolha - 1);
-  var programas = ["Jornal Minas","Meio de Campo","Opnião Minas","Palavra Cruzada","Agenda","Auto Falante","Brasil das Gerais","Harmonia","Hypershow","Mais Geraes"];
+  if(estadoAtual === "submenu_redeminas"){
+    var programas = ["Jornal Minas","Meio de Campo","Opnião Minas","Palavra Cruzada","Agenda","Auto Falante","Brasil das Gerais","Harmonia","Hypershow","Mais Geraes"];
+  }else if(estadoAtual === "submenu_inconfidencia"){
+    var programas = ["Memória Nacional","Acorde","Jornal da Inconfidência","Música e Notícia","Estúdio 100,9","MPB Em Revista","Bazar Maravilha","Almanaque","Jornal da Inconfidência","Zona de Conforto"];
+  }else if(estadoAtual === "submenu_emc"){
+    var programas = ["EMCPlay"];
+  }else if(estadoAtual === "submenu_seliga"){
+    var programas = ["Tira dúvidas ensino fundamental","Tira dúvidas ensino médio"];
+  }
   client.sendMessage(numeroRemetente, "Você escolheu a Opção " + escolha + " - " + programas[escolhaPrograma]);
   client.sendMessage(numeroRemetente, "1. Mandar Mensagem para o programa");
   client.sendMessage(numeroRemetente, "0. Sair para o menu anterior");
-  estadoUsuario.set(numeroRemetente, 'submenu_redeminas_opcao1');
-  
-}
-
-function opcoesInconfidencia(escolha, numeroRemetente){
-  escolha = Number(escolha);
-  var escolhaPrograma = (escolha - 1);
-  var programas = ["Memória Nacional","Acorde","Jornal da Inconfidência","Música e Notícia","Estúdio 100,9","MPB Em Revista","Bazar Maravilha","Almanaque","Jornal da Inconfidência","Zona de Conforto","Feito em Casa","Clube do Jazz","Cinefonia ","Batida Perfeita","Balanço Tropical","Universo Fantástico","Lado B","Horário Nobre","Onde Q Q Vc Esteja","Aguenta Coração"];
-  client.sendMessage(numeroRemetente, "Você escolheu a Opção " + escolha + " - " + programas[escolhaPrograma]);
-  client.sendMessage(numeroRemetente, "1. Mandar Mensagem para o programa");
-  client.sendMessage(numeroRemetente, "0. Sair para o menu anterior");
-  estadoUsuario.set(numeroRemetente, 'submenu_inconfidencia_opcao1');
+  estadoUsuario.set(numeroRemetente, 'submenu_mensagem');
   
 }
 
@@ -294,59 +291,57 @@ client.on('message', async (msg) => {
   // NUMEROS
   var meiocampo = "553194552841@c.us";
 
-  // SUBMENU Redeminas que contem os programas da Redeminas
-  if (estadoAtual === 'submenu_redeminas') {
+  // SUBMENU que contem os programas
+  if ((estadoAtual === 'submenu_redeminas') || (estadoAtual === 'submenu_inconfidencia') || (estadoAtual === 'submenu_emc') || (estadoAtual === 'submenu_seliga')) {
     switch (msg.body) {
       case '1':
-        // Opção para o usuário enviar uma mensagem personalizada
-        //client.sendMessage(numeroRemetente, "Digite a mensagem que você deseja enviar:");
-        //estadoUsuario.set(numeroRemetente, 'aguardandoMensagem');
-        opcoesRedeminas(msg.body, numeroRemetente);
+        // Submenu para a opção 1 do submenu
+        opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
 
       case '2':
-        // Submenu para a opção 2 do submenu_redeminas
-        opcoesRedeminas(msg.body, numeroRemetente);
+        // Submenu para a opção 2 do submenu
+        opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
       
       case '3':
-        // Submenu para a opção 3 do submenu_redeminas
-        opcoesRedeminas(msg.body, numeroRemetente);
+        // Submenu para a opção 3 do submenu
+        opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
     
       case '4':
-        // Submenu para a opção 4 do submenu_redeminas
-        opcoesRedeminas(msg.body, numeroRemetente);
+        // Submenu para a opção 4 do submenu
+        opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
       
       case '5':
-        // Submenu para a opção 5 do submenu_redeminas
-        opcoesRedeminas(msg.body, numeroRemetente);
+        // Submenu para a opção 5 do submenu
+        opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
   
       case '6':
-        // Submenu para a opção 6 do submenu_redeminas
-        opcoesRedeminas(msg.body, numeroRemetente);
+        // Submenu para a opção 6 do submenu
+        opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
     
       case '7':
-        // Submenu para a opção 7 do submenu_redeminas
-        opcoesRedeminas(msg.body, numeroRemetente);
+        // Submenu para a opção 7 do submenu
+        opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
       
       case '8':
-        // Submenu para a opção 8 do submenu_redeminas
-        opcoesRedeminas(msg.body, numeroRemetente);
+        // Submenu para a opção 8 do submenu
+        opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
   
       case '9':
-        // Submenu para a opção 9 do submenu_redeminas
-        opcoesRedeminas(msg.body, numeroRemetente);
+        // Submenu para a opção 9 do submenu
+        opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
       
       case '10':
-        // Submenu para a opção 10 do submenu_redeminas
-        opcoesRedeminas(msg.body, numeroRemetente);
+        // Submenu para a opção 10 do submenu
+        opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
 
       case '0':
@@ -358,7 +353,7 @@ client.on('message', async (msg) => {
       default:
         client.sendMessage(numeroRemetente, "Opção inválida no submenu. Por favor, escolha novamente.");
     }
-  }else if (estadoAtual === 'submenu_redeminas_opcao1') {
+  }else if (estadoAtual === 'submenu_mensagem') {
 
     if(estadoOpcao === 'aguardandoMensagem'){
       // Perguntar ao usuário a Mensagem
@@ -371,11 +366,11 @@ client.on('message', async (msg) => {
       estadoSubmenu.set(numeroRemetente, 'aguardandoMensagem');
     }else if(estadoOpcao === 'aguardandoIdade'){
       // Perguntar ao usuário a Idade
-      client.sendMessage(numeroRemetente, "Digite o sua Idade:");
+      client.sendMessage(numeroRemetente, "Digite o sua idade:");
       estadoSubmenu.set(numeroRemetente, 'aguardandoEndereco');
     }else if(msg.body == '1'){
       // Perguntar ao usuário o Nome
-      client.sendMessage(numeroRemetente, "Você escolheu a Opção 1 - Mandar mensagem para o programa");
+      client.sendMessage(numeroRemetente, "Você escolheu a opção 1 - Mandar mensagem para o programa");
       client.sendMessage(numeroRemetente, "Digite o seu nome:");
       estadoSubmenu.set(numeroRemetente, 'aguardandoIdade');
     }else if(msg.body == '0'){
@@ -387,30 +382,32 @@ client.on('message', async (msg) => {
 
   }else if(estadoAtual === 'aguardandoMensagem'){
     var mensagemUsuario = msg.body;
-    client.sendMessage(numeroRemetente, 'Mensagem Enviada ao programa!\nAgradecemos sua participação!');
+    const imagemJoinha = MessageMedia.fromFilePath('./joinha.jpeg');
+    client.sendMessage(numeroRemetente, 'Mensagem Enviada ao programa!\nAgradecemos sua participação!\nVoltando para o Menu inicial!');
+    client.sendMessage(numeroRemetente, imagemJoinha);
     estadoUsuario.set(numeroRemetente, '');
   }else{
     const numeroEscolhido = parseInt(msg.body);
     if (!isNaN(numeroEscolhido) && numeroEscolhido >= 1 && numeroEscolhido <= 4) {
       switch (numeroEscolhido) {
         case 1:
-          client.sendMessage(numeroRemetente, "Você quer falar sobre a Rede Minas, escolha um dos nossos programas.\r\nDigite o número da opção que deseja.\r\n\r\n1 - Jornal Minas\r\n2 - Meio de Campo\r\n3 - Opinião Minas\r\n4 - Palavra Cruzada\r\n5 - Agenda\r\n6 - Auto Falante\r\n7 - Brasil das Gerais\r\n8 - Harmonia\r\n9 - Hypershow\r\n10 - Mais Geraes");
+          client.sendMessage(numeroRemetente, "Você quer falar sobre a Rede Minas, escolha um de nossos programas.\r\nDigite o número da opção que deseja.\r\n\r\n1 - Jornal Minas\r\n2 - Meio de Campo\r\n3 - Opinião Minas\r\n4 - Palavra Cruzada\r\n5 - Agenda\r\n6 - Auto Falante\r\n7 - Brasil das Gerais\r\n8 - Harmonia\r\n9 - Hypershow\r\n10 - Mais Geraes\r\n0 - Para voltar para o menu anterior");
           estadoUsuario.set(numeroRemetente, 'submenu_redeminas');
           break;
         
         case 2:
-          client.sendMessage(numeroRemetente, "Você quer falar sobre a Rede Minas, escolha um dos nossos programas.\r\nDigite o número da opção que deseja.\r\n\r\n1 - Jornal Minas\r\n2 - Meio de Campo\r\n3 - Opinião Minas\r\n4 - Palavra Cruzada\r\n5 - Agenda\r\n6 - Auto Falante\r\n7 - Brasil das Gerais\r\n8 - Harmonia\r\n9 - Hypershow\r\n10 - Mais Geraes");
-          estadoUsuario.set(numeroRemetente, 'submenu_redeminas');
+          client.sendMessage(numeroRemetente, "Você quer falar sobre a Rádio Inconfidencia, escolha um de nossos programas.\r\nDigite o número da opção que deseja.\r\n\r\n1 - Memória Nacional\r\n2 - Acorde\r\n3 - Jornal da Inconfidência\r\n4 - Música e Notícia\r\n5 - Estúdio 100,9\r\n6 - MPB Em Revista\r\n7 - Bazar Maravilha\r\n8 - Almanaque\r\n9 - Jornal da Inconfidência\r\n10 - Zona de Conforto\r\n0 - Para voltar para o menu anterior");
+          estadoUsuario.set(numeroRemetente, 'submenu_inconfidencia');
           break;
 
         case 3:
-          client.sendMessage(numeroRemetente, "Você quer falar sobre a Rede Minas, escolha um dos nossos programas.\r\nDigite o número da opção que deseja.\r\n\r\n1 - Jornal Minas\r\n2 - Meio de Campo\r\n3 - Opinião Minas\r\n4 - Palavra Cruzada\r\n5 - Agenda\r\n6 - Auto Falante\r\n7 - Brasil das Gerais\r\n8 - Harmonia\r\n9 - Hypershow\r\n10 - Mais Geraes");
-          estadoUsuario.set(numeroRemetente, 'submenu_redeminas');
+          client.sendMessage(numeroRemetente, "Você quer falar sobre a EMC, escolha um de nossos programas.\r\nDigite o número da opção que deseja.\r\n\r\n1 - EMCPlay\r\n0 - Para voltar para o menu anterior");
+          estadoUsuario.set(numeroRemetente, 'submenu_emc');
           break;
 
         case 4:
-          client.sendMessage(numeroRemetente, "Você quer falar sobre a Rede Minas, escolha um dos nossos programas.\r\nDigite o número da opção que deseja.\r\n\r\n1 - Jornal Minas\r\n2 - Meio de Campo\r\n3 - Opinião Minas\r\n4 - Palavra Cruzada\r\n5 - Agenda\r\n6 - Auto Falante\r\n7 - Brasil das Gerais\r\n8 - Harmonia\r\n9 - Hypershow\r\n10 - Mais Geraes");
-          estadoUsuario.set(numeroRemetente, 'submenu_redeminas');
+          client.sendMessage(numeroRemetente, "Você quer falar sobre o Se Liga na Educação, escolha uma das opções a seguir.\r\nDigite o número da opção que deseja.\r\n\r\n1 - Tira dúvidas ensino fundamental\r\n2 - Tira dúvidas ensino médio\r\n0 - Para voltar para o menu anterior");
+          estadoUsuario.set(numeroRemetente, 'submenu_seliga');
           break;
 
         case 0:

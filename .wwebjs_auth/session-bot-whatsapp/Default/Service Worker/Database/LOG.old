@@ -1,2 +1,3 @@
-2023/12/11-09:58:16.494 65c4 Creating DB C:\Users\junin\Documents\Projetos\Bot-Whatsapp\.wwebjs_auth\session-bot-whatsapp\Default\Service Worker\Database since it was missing.
-2023/12/11-09:58:16.499 65c4 Reusing MANIFEST C:\Users\junin\Documents\Projetos\Bot-Whatsapp\.wwebjs_auth\session-bot-whatsapp\Default\Service Worker\Database/MANIFEST-000001
+2023/12/19-09:52:55.644 68fc Reusing MANIFEST C:\Users\junin\Documents\Projetos\Bot-Whatsapp\.wwebjs_auth\session-bot-whatsapp\Default\Service Worker\Database/MANIFEST-000001
+2023/12/19-09:52:55.648 68fc Recovering log #3
+2023/12/19-09:52:55.648 68fc Reusing old log C:\Users\junin\Documents\Projetos\Bot-Whatsapp\.wwebjs_auth\session-bot-whatsapp\Default\Service Worker\Database/000003.log 

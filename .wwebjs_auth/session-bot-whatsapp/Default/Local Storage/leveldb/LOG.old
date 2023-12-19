@@ -1,2 +1,5 @@
-2023/12/11-09:58:13.278 6560 Creating DB C:\Users\junin\Documents\Projetos\Bot-Whatsapp\.wwebjs_auth\session-bot-whatsapp\Default\Local Storage\leveldb since it was missing.
-2023/12/11-09:58:13.291 6560 Reusing MANIFEST C:\Users\junin\Documents\Projetos\Bot-Whatsapp\.wwebjs_auth\session-bot-whatsapp\Default\Local Storage\leveldb/MANIFEST-000001
+2023/12/19-09:52:55.642 1358 Reusing MANIFEST C:\Users\junin\Documents\Projetos\Bot-Whatsapp\.wwebjs_auth\session-bot-whatsapp\Default\Local Storage\leveldb/MANIFEST-000001
+2023/12/19-09:52:55.648 1358 Recovering log #3
+2023/12/19-09:52:55.648 1358 Level-0 table #3: started
+2023/12/19-09:52:55.652 1358 Level-0 table #3: 15928 bytes OK
+2023/12/19-09:52:55.653 1358 Delete type=0 #3
