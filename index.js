@@ -258,7 +258,7 @@ app.post('/zdg-media', [
 const mensagemBoasVindasEnviada = new Set();
 const estadoUsuario = new Map();
 const estadoSubmenu = new Map();
-
+var mensagemUsuario = [];
 function opcoesRedeminas(escolha, numeroRemetente, estadoAtual){
   escolha = Number(escolha);
   var escolhaPrograma = (escolha - 1);
@@ -271,7 +271,7 @@ function opcoesRedeminas(escolha, numeroRemetente, estadoAtual){
   }else if(estadoAtual === "submenu_seliga"){
     var programas = ["Tira dúvidas ensino fundamental","Tira dúvidas ensino médio"];
   }
-  client.sendMessage(numeroRemetente, "Você escolheu a Opção " + escolha + " - " + programas[escolhaPrograma]);
+  client.sendMessage(numeroRemetente, "Você escolheu a opção " + escolha + " - " + programas[escolhaPrograma]);
   client.sendMessage(numeroRemetente, "1. Mandar Mensagem para o programa");
   client.sendMessage(numeroRemetente, "0. Sair para o menu anterior");
   estadoUsuario.set(numeroRemetente, 'submenu_mensagem');
@@ -284,12 +284,15 @@ client.on('message', async (msg) => {
   }
 
   const numeroRemetente = msg.from;
+  console.log(msg.from);
   let estadoAtual = estadoUsuario.get(numeroRemetente);
   let estadoOpcao = estadoSubmenu.get(numeroRemetente);
 
 
   // NUMEROS
   var meiocampo = "553194552841@c.us";
+  // Array que armazena os números que receberão os dados digitados pelo telespectador
+  var numerosProgramas = ["553199120881@c.us"];
 
   // SUBMENU que contem os programas
   if ((estadoAtual === 'submenu_redeminas') || (estadoAtual === 'submenu_inconfidencia') || (estadoAtual === 'submenu_emc') || (estadoAtual === 'submenu_seliga')) {
@@ -301,46 +304,82 @@ client.on('message', async (msg) => {
 
       case '2':
         // Submenu para a opção 2 do submenu
+        if(estadoAtual === 'submenu_emc'){
+          client.sendMessage(numeroRemetente, "Opção inválida no submenu. Por favor, escolha novamente.");
+          break;
+        }
         opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
       
       case '3':
         // Submenu para a opção 3 do submenu
+        if((estadoAtual === 'submenu_emc') || (estadoAtual === 'submenu_seliga')){
+          client.sendMessage(numeroRemetente, "Opção inválida no submenu. Por favor, escolha novamente.");
+          break;
+        }
         opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
     
       case '4':
         // Submenu para a opção 4 do submenu
+        if((estadoAtual === 'submenu_emc') || (estadoAtual === 'submenu_seliga')){
+          client.sendMessage(numeroRemetente, "Opção inválida no submenu. Por favor, escolha novamente.");
+          break;
+        }
         opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
       
       case '5':
         // Submenu para a opção 5 do submenu
+        if((estadoAtual === 'submenu_emc') || (estadoAtual === 'submenu_seliga')){
+          client.sendMessage(numeroRemetente, "Opção inválida no submenu. Por favor, escolha novamente.");
+          break;
+        }
         opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
   
       case '6':
         // Submenu para a opção 6 do submenu
+        if((estadoAtual === 'submenu_emc') || (estadoAtual === 'submenu_seliga')){
+          client.sendMessage(numeroRemetente, "Opção inválida no submenu. Por favor, escolha novamente.");
+          break;
+        }
         opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
     
       case '7':
         // Submenu para a opção 7 do submenu
+        if((estadoAtual === 'submenu_emc') || (estadoAtual === 'submenu_seliga')){
+          client.sendMessage(numeroRemetente, "Opção inválida no submenu. Por favor, escolha novamente.");
+          break;
+        }
         opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
       
       case '8':
         // Submenu para a opção 8 do submenu
+        if((estadoAtual === 'submenu_emc') || (estadoAtual === 'submenu_seliga')){
+          client.sendMessage(numeroRemetente, "Opção inválida no submenu. Por favor, escolha novamente.");
+          break;
+        }
         opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
   
       case '9':
         // Submenu para a opção 9 do submenu
+        if((estadoAtual === 'submenu_emc') || (estadoAtual === 'submenu_seliga')){
+          client.sendMessage(numeroRemetente, "Opção inválida no submenu. Por favor, escolha novamente.");
+          break;
+        }
         opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
       
       case '10':
         // Submenu para a opção 10 do submenu
+        if((estadoAtual === 'submenu_emc') || (estadoAtual === 'submenu_seliga')){
+          client.sendMessage(numeroRemetente, "Opção inválida no submenu. Por favor, escolha novamente.");
+          break;
+        }
         opcoesRedeminas(msg.body, numeroRemetente, estadoAtual);
         break;
 
@@ -354,20 +393,23 @@ client.on('message', async (msg) => {
         client.sendMessage(numeroRemetente, "Opção inválida no submenu. Por favor, escolha novamente.");
     }
   }else if (estadoAtual === 'submenu_mensagem') {
-
+    
     if(estadoOpcao === 'aguardandoMensagem'){
       // Perguntar ao usuário a Mensagem
       client.sendMessage(numeroRemetente, "Digite a mensagem que você deseja enviar:");
       estadoUsuario.set(numeroRemetente, 'aguardandoMensagem');
       estadoSubmenu.set(numeroRemetente, '');
+      mensagemUsuario[2] = msg.body;
     }else if(estadoOpcao === 'aguardandoEndereco'){
       // Perguntar ao usuário o Endereço
-      client.sendMessage(numeroRemetente, "Digite o seu endereço:");
+      client.sendMessage(numeroRemetente, "Digite o seu endereço(Rua, Bairro, Cidade):");
       estadoSubmenu.set(numeroRemetente, 'aguardandoMensagem');
+      mensagemUsuario[1] = msg.body;
     }else if(estadoOpcao === 'aguardandoIdade'){
       // Perguntar ao usuário a Idade
-      client.sendMessage(numeroRemetente, "Digite o sua idade:");
+      client.sendMessage(numeroRemetente, "Digite a sua idade:");
       estadoSubmenu.set(numeroRemetente, 'aguardandoEndereco');
+      mensagemUsuario[0] = msg.body;
     }else if(msg.body == '1'){
       // Perguntar ao usuário o Nome
       client.sendMessage(numeroRemetente, "Você escolheu a opção 1 - Mandar mensagem para o programa");
@@ -381,10 +423,17 @@ client.on('message', async (msg) => {
     }
 
   }else if(estadoAtual === 'aguardandoMensagem'){
-    var mensagemUsuario = msg.body;
-    const imagemJoinha = MessageMedia.fromFilePath('./joinha.jpeg');
+    const imagemJoinha = MessageMedia.fromFilePath('./joinha.jpg');
     client.sendMessage(numeroRemetente, 'Mensagem Enviada ao programa!\nAgradecemos sua participação!\nVoltando para o Menu inicial!');
     client.sendMessage(numeroRemetente, imagemJoinha);
+    //teste mensagem enviada pelo usuário
+    mensagemUsuario[3] = msg.body;
+    console.log(mensagemUsuario);
+    //Envia a mensagem para o programa
+    for(var x = 0; x < mensagemUsuario.length; x++){
+      client.sendMessage(numerosProgramas[0], mensagemUsuario[x]);
+      console.log(mensagemUsuario[x]);
+    }
     estadoUsuario.set(numeroRemetente, '');
   }else{
     const numeroEscolhido = parseInt(msg.body);
@@ -411,7 +460,7 @@ client.on('message', async (msg) => {
           break;
 
         case 0:
-          client.sendMessage(numeroRemetente, "Você já está no menu inicial, digita uma opção correta!");
+          client.sendMessage(numeroRemetente, "Você já está no menu inicial, digite uma opção correta!");
           break;
 
         default:
