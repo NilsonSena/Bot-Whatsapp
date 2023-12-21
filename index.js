@@ -21,10 +21,10 @@ function delay(t, v) {
 
 app.use(express.json());
 app.use(express.urlencoded({
-extended: true
+  extended: true
 }));
 app.use(fileUpload({
-debug: true
+  debug: true
 }));
 app.use("/", express.static(__dirname + "/"))
 
@@ -56,41 +56,41 @@ io.on('connection', function(socket) {
   socket.emit('message', 'Iniciado');
   socket.emit('qr', './icon.svg');
 
-client.on('qr', (qr) => {
-    console.log('QR RECEBIDO', qr);
-    qrcode.toDataURL(qr, (err, url) => {
-      socket.emit('qr', url);
-      socket.emit('message', 'QRCode recebido, aponte a câmera  seu celular!');
-    });
-});
+  client.on('qr', (qr) => {
+      console.log('QR RECEBIDO', qr);
+      qrcode.toDataURL(qr, (err, url) => {
+        socket.emit('qr', url);
+        socket.emit('message', 'QRCode recebido, aponte a câmera  seu celular!');
+      });
+  });
 
-client.on('ready', () => {
-    socket.emit('ready', 'Dispositivo pronto!');
-    socket.emit('message', 'Dispositivo pronto!');
-    socket.emit('qr', './check.svg')	
-    console.log('Dispositivo pronto');
-});
+  client.on('ready', () => {
+      socket.emit('ready', 'Dispositivo pronto!');
+      socket.emit('message', 'Dispositivo pronto!');
+      socket.emit('qr', './check.svg')	
+      console.log('Dispositivo pronto');
+  });
 
-client.on('authenticated', () => {
-    socket.emit('authenticated', 'Autenticado!');
-    socket.emit('message', 'Autenticado!');
-    console.log('Autenticado');
-});
+  client.on('authenticated', () => {
+      socket.emit('authenticated', 'Autenticado!');
+      socket.emit('message', 'Autenticado!');
+      console.log('Autenticado');
+  });
 
-client.on('auth_failure', function() {
-    socket.emit('message', 'Falha na autenticação, reiniciando...');
-    console.error('Falha na autenticação');
-});
+  client.on('auth_failure', function() {
+      socket.emit('message', 'Falha na autenticação, reiniciando...');
+      console.error('Falha na autenticação');
+  });
 
-client.on('change_state', state => {
-  console.log('Status de conexão: ', state );
-});
+  client.on('change_state', state => {
+    console.log('Status de conexão: ', state );
+  });
 
-client.on('disconnected', (reason) => {
-  socket.emit('message', 'Cliente desconectado!');
-  console.log('Cliente desconectado', reason);
-  client.initialize();
-});
+  client.on('disconnected', (reason) => {
+    socket.emit('message', 'Cliente desconectado!');
+    console.log('Cliente desconectado', reason);
+    client.initialize();
+  });
 });
 
 // Send message
@@ -120,49 +120,49 @@ app.post('/zdg-message', [
   if (numberDDI !== "55") {
     const numberWhatsapp = number + "@c.us";
     client.sendMessage(numberWhatsapp, message).then(response => {
-    res.status(200).json({
-      status: true,
-      message: 'Mensagem enviada',
-      response: response
-    });
+      res.status(200).json({
+        status: true,
+        message: 'Mensagem enviada',
+        response: response
+      });
     }).catch(err => {
-    res.status(500).json({
-      status: false,
-      message: 'Mensagem não enviada',
-      response: err.text
-    });
+      res.status(500).json({
+        status: false,
+        message: 'Mensagem não enviada',
+        response: err.text
+      });
     });
   }
   else if (numberDDI === "55" && parseInt(numberDDD) <= 30) {
     const numberWhatsapp = "55" + numberDDD + "9" + numberUser + "@c.us";
     client.sendMessage(numberWhatsapp, message).then(response => {
-    res.status(200).json({
-      status: true,
-      message: 'Mensagem enviada',
-      response: response
-    });
+      res.status(200).json({
+        status: true,
+        message: 'Mensagem enviada',
+        response: response
+      });
     }).catch(err => {
-    res.status(500).json({
-      status: false,
-      message: 'Mensagem não enviada',
-      response: err.text
-    });
+      res.status(500).json({
+        status: false,
+        message: 'Mensagem não enviada',
+        response: err.text
+      });
     });
   }
   else if (numberDDI === "55" && parseInt(numberDDD) > 30) {
     const numberWhatsapp = "55" + numberDDD + numberUser + "@c.us";
     client.sendMessage(numberWhatsapp, message).then(response => {
-    res.status(200).json({
-      status: true,
-      message: 'Mensagem enviada',
-      response: response
-    });
+      res.status(200).json({
+        status: true,
+        message: 'Mensagem enviada',
+        response: response
+      });
     }).catch(err => {
-    res.status(500).json({
-      status: false,
-      message: 'Mensagem não enviada',
-      response: err.text
-    });
+      res.status(500).json({
+        status: false,
+        message: 'Mensagem não enviada',
+        response: err.text
+      });
     });
   }
 });
@@ -207,17 +207,17 @@ app.post('/zdg-media', [
   if (numberDDI !== "55") {
     const numberWhatsapp = number + "@c.us";
     client.sendMessage(numberWhatsapp, media, {caption: caption}).then(response => {
-    res.status(200).json({
-      status: true,
-      message: 'Imagem enviada',
-      response: response
-    });
+      res.status(200).json({
+        status: true,
+        message: 'Imagem enviada',
+        response: response
+      });
     }).catch(err => {
-    res.status(500).json({
-      status: false,
-      message: 'Imagem não enviada',
-      response: err.text
-    });
+      res.status(500).json({
+        status: false,
+        message: 'Imagem não enviada',
+        response: err.text
+      });
     });
   }
   else if (numberDDI === "55" && parseInt(numberDDD) <= 30) {
@@ -229,11 +229,11 @@ app.post('/zdg-media', [
       response: response
     });
     }).catch(err => {
-    res.status(500).json({
-      status: false,
-      message: 'Imagem não enviada',
-      response: err.text
-    });
+      res.status(500).json({
+        status: false,
+        message: 'Imagem não enviada',
+        response: err.text
+      });
     });
   }
   else if (numberDDI === "55" && parseInt(numberDDD) > 30) {
@@ -245,11 +245,11 @@ app.post('/zdg-media', [
       response: response
     });
     }).catch(err => {
-    res.status(500).json({
-      status: false,
-      message: ' Imagem não enviada',
-      response: err.text
-    });
+      res.status(500).json({
+        status: false,
+        message: ' Imagem não enviada',
+        response: err.text
+      });
     });
   }
 
@@ -259,17 +259,24 @@ const mensagemBoasVindasEnviada = new Set();
 const estadoUsuario = new Map();
 const estadoSubmenu = new Map();
 var mensagemUsuario = [];
+var escolhaPrograma;
+var escolhaEmpresa;
 function opcoesRedeminas(escolha, numeroRemetente, estadoAtual){
   escolha = Number(escolha);
-  var escolhaPrograma = (escolha - 1);
+  escolhaPrograma = (escolha - 1);
+  var programas = [];
   if(estadoAtual === "submenu_redeminas"){
-    var programas = ["Jornal Minas","Meio de Campo","Opnião Minas","Palavra Cruzada","Agenda","Auto Falante","Brasil das Gerais","Harmonia","Hypershow","Mais Geraes"];
+    programas = ["Jornal Minas","Meio de Campo","Opnião Minas","Palavra Cruzada","Agenda","Auto Falante","Brasil das Gerais","Harmonia","Hypershow","Mais Geraes"];
+    escolhaEmpresa = 0;
   }else if(estadoAtual === "submenu_inconfidencia"){
-    var programas = ["Memória Nacional","Acorde","Jornal da Inconfidência","Música e Notícia","Estúdio 100,9","MPB Em Revista","Bazar Maravilha","Almanaque","Jornal da Inconfidência","Zona de Conforto"];
+    programas = ["Memória Nacional","Acorde","Jornal da Inconfidência","Música e Notícia","Estúdio 100,9","MPB Em Revista","Bazar Maravilha","Almanaque","Jornal da Inconfidência","Zona de Conforto"];
+    escolhaEmpresa = 1;
   }else if(estadoAtual === "submenu_emc"){
-    var programas = ["EMCPlay"];
+    programas = ["EMCPlay"];
+    escolhaEmpresa = 2;
   }else if(estadoAtual === "submenu_seliga"){
-    var programas = ["Tira dúvidas ensino fundamental","Tira dúvidas ensino médio"];
+    programas = ["Tira dúvidas ensino fundamental","Tira dúvidas ensino médio"];
+    escolhaEmpresa = 3;
   }
   client.sendMessage(numeroRemetente, "Você escolheu a opção " + escolha + " - " + programas[escolhaPrograma]);
   client.sendMessage(numeroRemetente, "1. Mandar Mensagem para o programa");
@@ -291,10 +298,20 @@ client.on('message', async (msg) => {
 
   // NUMEROS
   var meiocampo = "553194552841@c.us";
-  // Array que armazena os números que receberão os dados digitados pelo telespectador
-  var numerosProgramas = ["553199120881@c.us"];
+  
+  // Matriz que armazena os números que receberão os dados digitados pelo telespectador
+  var numerosProgramas = [];
+  // Numeros dos programas redeminas dentro da matriz na posição 0
+  numerosProgramas.push(["553199120881@c.us", "553199120881@c.us", "553199120881@c.us", "553199120881@c.us", "553199120881@c.us"]);
+  // Numeros dos programas da rádio Inconfidencia dentro da matriz na posição 1
+  numerosProgramas.push(["553199120881@c.us", "553199120881@c.us", "numero do programa 3 da Inconfidencia", "553199120881@c.us", "553199120881@c.us"]);
+  // Numeros dos programas da EMC dentro da matriz na posição 2
+  numerosProgramas.push(["553199120881@c.us", "553199120881@c.us", "553199120881@c.us", "553199120881@c.us", "553199120881@c.us"]);
+  // Numeros dos programas do Se Liga dentro da matriz na posição 3
+  numerosProgramas.push(["553199120881@c.us", "553199120881@c.us", "553199120881@c.us", "553199120881@c.us", "553199120881@c.us"]);
+ 
 
-  // SUBMENU que contem os programas
+  // Submenu que contem os programas
   if ((estadoAtual === 'submenu_redeminas') || (estadoAtual === 'submenu_inconfidencia') || (estadoAtual === 'submenu_emc') || (estadoAtual === 'submenu_seliga')) {
     switch (msg.body) {
       case '1':
@@ -417,23 +434,53 @@ client.on('message', async (msg) => {
       estadoSubmenu.set(numeroRemetente, 'aguardandoIdade');
     }else if(msg.body == '0'){
       client.sendMessage(numeroRemetente, "Você escolheu sair para o menu anterior.");
-      estadoUsuario.set(numeroRemetente, 'submenu_redeminas');
+      console.log(escolhaEmpresa);
+      if(escolhaEmpresa == 0){
+        client.sendMessage(numeroRemetente, "Você quer falar sobre a Rede Minas, escolha um de nossos programas.\r\nDigite o número da opção que deseja.\r\n\r\n1 - Jornal Minas\r\n2 - Meio de Campo\r\n3 - Opinião Minas\r\n4 - Palavra Cruzada\r\n5 - Agenda\r\n6 - Auto Falante\r\n7 - Brasil das Gerais\r\n8 - Harmonia\r\n9 - Hypershow\r\n10 - Mais Geraes\r\n0 - Para voltar para o menu anterior");
+        estadoUsuario.set(numeroRemetente, 'submenu_redeminas');
+      }else if(escolhaEmpresa == 1){
+        client.sendMessage(numeroRemetente, "Você quer falar sobre a Rádio Inconfidencia, escolha um de nossos programas.\r\nDigite o número da opção que deseja.\r\n\r\n1 - Memória Nacional\r\n2 - Acorde\r\n3 - Jornal da Inconfidência\r\n4 - Música e Notícia\r\n5 - Estúdio 100,9\r\n6 - MPB Em Revista\r\n7 - Bazar Maravilha\r\n8 - Almanaque\r\n9 - Jornal da Inconfidência\r\n10 - Zona de Conforto\r\n0 - Para voltar para o menu anterior");
+        estadoUsuario.set(numeroRemetente, 'submenu_inconfidencia');
+      }else if(escolhaEmpresa == 2){
+        client.sendMessage(numeroRemetente, "Você quer falar sobre a EMC, escolha um de nossos programas.\r\nDigite o número da opção que deseja.\r\n\r\n1 - EMCPlay\r\n0 - Para voltar para o menu anterior");
+        estadoUsuario.set(numeroRemetente, 'submenu_emc');
+      }else if(escolhaEmpresa == 3){
+        client.sendMessage(numeroRemetente, "Você quer falar sobre o Se Liga na Educação, escolha uma das opções a seguir.\r\nDigite o número da opção que deseja.\r\n\r\n1 - Tira dúvidas ensino fundamental\r\n2 - Tira dúvidas ensino médio\r\n0 - Para voltar para o menu anterior");
+        estadoUsuario.set(numeroRemetente, 'submenu_seliga');
+      }
+      //client.sendMessage(numeroRemetente, "Você quer falar sobre a Rede Minas, escolha um de nossos programas.\r\nDigite o número da opção que deseja.\r\n\r\n1 - Jornal Minas\r\n2 - Meio de Campo\r\n3 - Opinião Minas\r\n4 - Palavra Cruzada\r\n5 - Agenda\r\n6 - Auto Falante\r\n7 - Brasil das Gerais\r\n8 - Harmonia\r\n9 - Hypershow\r\n10 - Mais Geraes\r\n0 - Para voltar para o menu anterior");
+      //estadoUsuario.set(numeroRemetente, 'submenu_redeminas');
     }else{
       client.sendMessage(numeroRemetente, "Opção inválida no submenu. Por favor, escolha novamente.");
     }
 
   }else if(estadoAtual === 'aguardandoMensagem'){
+    //Envia imagem
     const imagemJoinha = MessageMedia.fromFilePath('./joinha.jpg');
     client.sendMessage(numeroRemetente, 'Mensagem Enviada ao programa!\nAgradecemos sua participação!\nVoltando para o Menu inicial!');
     client.sendMessage(numeroRemetente, imagemJoinha);
-    //teste mensagem enviada pelo usuário
+    
+    //Reste mensagem enviada pelo usuário
     mensagemUsuario[3] = msg.body;
     console.log(mensagemUsuario);
+
     //Envia a mensagem para o programa
+    var mensagemFinal = "";
     for(var x = 0; x < mensagemUsuario.length; x++){
-      client.sendMessage(numerosProgramas[0], mensagemUsuario[x]);
+      if(x == 0){
+        mensagemFinal = mensagemUsuario[x];
+      }else{
+        mensagemFinal = mensagemFinal + "\n" + mensagemUsuario[x];
+      }
       console.log(mensagemUsuario[x]);
     }
+    //testes
+    console.log(escolhaEmpresa);
+    console.log(escolhaPrograma);
+    console.log(numerosProgramas[escolhaEmpresa][escolhaPrograma]);
+    //client.sendMessage(numerosProgramas[escolhaPrograma], mensagemFinal);
+    
+    client.sendMessage(numerosProgramas[0][0], mensagemFinal);
     estadoUsuario.set(numeroRemetente, '');
   }else{
     const numeroEscolhido = parseInt(msg.body);

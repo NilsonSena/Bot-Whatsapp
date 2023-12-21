@@ -1,6 +1,3 @@
-2023/12/20-11:53:14.105 14b4 Reusing MANIFEST C:\Users\junin\Documents\Projetos\Bot-Whatsapp\.wwebjs_auth\session-bot-whatsapp\Default\Local Storage\leveldb/MANIFEST-000001
-2023/12/20-11:53:14.111 14b4 Recovering log #4
-2023/12/20-11:53:14.111 14b4 Reusing old log C:\Users\junin\Documents\Projetos\Bot-Whatsapp\.wwebjs_auth\session-bot-whatsapp\Default\Local Storage\leveldb/000004.log 
-2023/12/20-11:55:14.573 5850 Level-0 table #7: started
-2023/12/20-11:55:14.578 5850 Level-0 table #7: 16773 bytes OK
-2023/12/20-11:55:14.580 5850 Delete type=0 #4
+2023/12/21-11:49:10.188 3580 Reusing MANIFEST C:\Users\junin\Documents\Projetos\Bot-Whatsapp\.wwebjs_auth\session-bot-whatsapp\Default\Local Storage\leveldb/MANIFEST-000001
+2023/12/21-11:49:10.189 3580 Recovering log #10
+2023/12/21-11:49:10.189 3580 Reusing old log C:\Users\junin\Documents\Projetos\Bot-Whatsapp\.wwebjs_auth\session-bot-whatsapp\Default\Local Storage\leveldb/000010.log 
