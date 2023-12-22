@@ -35,7 +35,6 @@ app.get('/', (req, res) => {
 });
 
 const client = new Client({
-  //authStrategy: new LocalAuth({ clientId: 'bot-zdg' }),
   authStrategy: new LocalAuth({ clientId: 'bot-whatsapp' }),
   puppeteer: { headless: true,
     args: [
@@ -291,7 +290,7 @@ client.on('message', async (msg) => {
   }
 
   const numeroRemetente = msg.from;
-  console.log(msg.from);
+  //console.log(msg.from);
   let estadoAtual = estadoUsuario.get(numeroRemetente);
   let estadoOpcao = estadoSubmenu.get(numeroRemetente);
 
@@ -434,7 +433,7 @@ client.on('message', async (msg) => {
       estadoSubmenu.set(numeroRemetente, 'aguardandoIdade');
     }else if(msg.body == '0'){
       client.sendMessage(numeroRemetente, "Você escolheu sair para o menu anterior.");
-      console.log(escolhaEmpresa);
+      //console.log(escolhaEmpresa);
       if(escolhaEmpresa == 0){
         client.sendMessage(numeroRemetente, "Você quer falar sobre a Rede Minas, escolha um de nossos programas.\r\nDigite o número da opção que deseja.\r\n\r\n1 - Jornal Minas\r\n2 - Meio de Campo\r\n3 - Opinião Minas\r\n4 - Palavra Cruzada\r\n5 - Agenda\r\n6 - Auto Falante\r\n7 - Brasil das Gerais\r\n8 - Harmonia\r\n9 - Hypershow\r\n10 - Mais Geraes\r\n0 - Para voltar para o menu anterior");
         estadoUsuario.set(numeroRemetente, 'submenu_redeminas');
@@ -455,16 +454,16 @@ client.on('message', async (msg) => {
     }
 
   }else if(estadoAtual === 'aguardandoMensagem'){
-    //Envia imagem
+    // Envia imagem
     const imagemJoinha = MessageMedia.fromFilePath('./joinha.jpg');
     client.sendMessage(numeroRemetente, 'Mensagem Enviada ao programa!\nAgradecemos sua participação!\nVoltando para o Menu inicial!');
     client.sendMessage(numeroRemetente, imagemJoinha);
     
-    //Reste mensagem enviada pelo usuário
+    // Reste mensagem enviada pelo usuário
     mensagemUsuario[3] = msg.body;
-    console.log(mensagemUsuario);
+    //console.log(mensagemUsuario);
 
-    //Envia a mensagem para o programa
+    // Envia a mensagem para o programa
     var mensagemFinal = "";
     for(var x = 0; x < mensagemUsuario.length; x++){
       if(x == 0){
@@ -472,12 +471,12 @@ client.on('message', async (msg) => {
       }else{
         mensagemFinal = mensagemFinal + "\n" + mensagemUsuario[x];
       }
-      console.log(mensagemUsuario[x]);
+      //console.log(mensagemUsuario[x]);
     }
-    //testes
-    console.log(escolhaEmpresa);
-    console.log(escolhaPrograma);
-    console.log(numerosProgramas[escolhaEmpresa][escolhaPrograma]);
+    // Testes
+    //console.log(escolhaEmpresa);
+    //console.log(escolhaPrograma);
+    //console.log(numerosProgramas[escolhaEmpresa][escolhaPrograma]);
     //client.sendMessage(numerosProgramas[escolhaPrograma], mensagemFinal);
     
     client.sendMessage(numerosProgramas[0][0], mensagemFinal);
